@@ -1,19 +1,30 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const fs = require("fs");
-const sqlite3 = require("sqlite3").verbose();
+const { Pool } = require('pg');
 
-const db = new sqlite3.Database("./messages.db");
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false // Required for Render/external connections
+  }
+});
 
-db.run(`CREATE TABLE IF NOT EXISTS messages (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  email TEXT,
-  message TEXT,
-  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)`);
+const initDb = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS messages (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+};
+initDb();
 
 const app = express();
 
@@ -24,42 +35,46 @@ app.use(express.json());
 
 // Rate limiter (protects against spam)
 const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 50,
+  windowMs: 15 * 60 * 1000,
+  max: 50,
 });
 app.use(limiter);
 
 // API demo route
 app.get("/api", (req, res) => {
-    res.json({
-        message: "Backend is running",
-        developer: "Jerry-Bassey Bryan",
-        skills: ["Node.js", "APIs", "Security", "Databases"],
-    });
+  res.json({
+    message: "Backend is running",
+    developer: "Jerry-Bassey Bryan",
+    skills: ["Node.js", "APIs", "Security", "Databases"],
+  });
 });
 
 // Contact form route — validates input & saves to messages.txt
-app.post("/contact", (req, res) => {
+app.post("/contact", async (req, res, next) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
     return res.status(400).json({ message: "All fields required" });
   }
 
-  db.run(
-    "INSERT INTO messages (name,email,message) VALUES (?,?,?)",
-    [name, email, message],
-    err => {
-      if (err) return res.status(500).json({ message: "Database error" });
-      res.json({ message: "Message saved successfully!" });
-    }
-  );
+  try {
+    const result = await pool.query(
+      'INSERT INTO messages (name, email, message) VALUES ($1, $2, $3) RETURNING *',
+      [name, email, message]
+    );
+    res.status(201).json({ success: true, data: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-app.get("/messages", (req, res) => {
-  db.all("SELECT * FROM messages", [], (err, rows) => {
-    res.json(rows);
-  });
+app.get("/messages", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC");
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 const PORT = process.env.PORT || 5000;
