@@ -41,7 +41,7 @@ document.getElementById("contactForm").addEventListener("submit", async (e) => {
     statusEl.textContent = "";
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
+        const res = await fetch("https://portfolio-jeedy.onrender.com/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
