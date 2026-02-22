@@ -1,0 +1,20 @@
+{
+  "name": "portfolio-server",
+  "version": "1.0.0",
+  "description": "Backend server for Jerry-Bassey Bryan's portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "Jerry-Bassey Bryan",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}

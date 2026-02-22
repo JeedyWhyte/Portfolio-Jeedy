@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Jerry-Bassey Bryan — Backend Developer specializing in secure APIs, databases, and scalable systems.">
+    <title>Jerry-Bassey Bryan | Backend Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+
+    <div class="container">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <img src="../public/profile.jpg" class="avatar" alt="Jerry-Bassey Bryan profile photo">
+
+            <h1>Jerry-Bassey Bryan</h1>
+            <p class="role">Backend Developer</p>
+            <p class="location">Based in Rivers State, Nigeria</p>
+
+            <!-- SOCIAL LINKS -->
+            <div class="socials">
+                <a href="https://github.com/JeedyWhyte" target="_blank" rel="noopener noreferrer"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://x.com/JeedyWhyte" target="_blank" rel="noopener noreferrer"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="mailto:bryanaghogho@outlook.com"><i class="fas fa-envelope"></i></a>
+            </div>
+
+            <section>
+                <h3>ABOUT</h3>
+                <p>I build secure APIs, design databases, and create systems that scale.</p>
+            </section>
+
+            <section>
+                <h3>SKILLS</h3>
+                <div class="skills">
+                    <span>Node.js</span>
+                    <span>SQL</span>
+                    <span>REST APIs</span>
+                    <span>Security</span>
+                    <span>Express.js</span>
+                    <span>Git</span>
+                </div>
+            </section>
+        </aside>
+
+        <!-- RIGHT CONTENT -->
+        <main class="content">
+
+            <section>
+                <h2>PROJECTS</h2>
+
+                <div class="card">
+                    <h3>Student Management API</h3>
+                    <p>RESTful API for managing student records with full CRUD operations.</p>
+                </div>
+
+                <div class="card">
+                    <h3>Secure Authentication System</h3>
+                    <p>Password hashing, JWT authentication &amp; role-based access control.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>EXPERIENCE</h2>
+                <div class="card">
+                    <h4>Backend Developer (Training)</h4>
+                    <p>Building secure APIs and database systems through hands-on projects.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>CONTACT</h2>
+                <form id="contactForm" novalidate>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name">
+                    <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email">
+                    <textarea id="message" name="message" placeholder="Your Message" required rows="5"></textarea>
+                    <button type="submit" id="submitBtn">Send Message</button>
+                </form>
+                <p id="status" role="status" aria-live="polite"></p>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
