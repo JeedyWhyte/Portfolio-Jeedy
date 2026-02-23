@@ -3,28 +3,12 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const fs = require("fs");
-const { Pool } = require('pg');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false // Required for Render/external connections
-  }
-});
+const connectDB = require("./config/database");
+const Message = require("./models/message.m");
 
-const initDb = async () => {
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS messages (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      message TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-  `);
-};
-initDb();
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 
@@ -35,12 +19,12 @@ app.use(express.json());
 
 // Rate limiter (protects against spam)
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 50,
 });
 app.use(limiter);
 
-// API demo route
+// ─── API Demo Route ────────────────────────────────────────────────────────────
 app.get("/api", (req, res) => {
   res.json({
     message: "Backend is running",
@@ -49,8 +33,9 @@ app.get("/api", (req, res) => {
   });
 });
 
-// Contact form route — validates input & saves to messages.txt
-app.post("/contact", async (req, res, next) => {
+// ─── POST /contact ─────────────────────────────────────────────────────────────
+// Validates input and saves a new contact message to MongoDB
+app.post("/contact", async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -58,20 +43,19 @@ app.post("/contact", async (req, res, next) => {
   }
 
   try {
-    const result = await pool.query(
-      'INSERT INTO messages (name, email, message) VALUES ($1, $2, $3) RETURNING *',
-      [name, email, message]
-    );
-    res.status(201).json({ success: true, data: result.rows[0] });
+    const newMessage = await Message.create({ name, email, message });
+    res.status(201).json({ success: true, data: newMessage });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
+// ─── GET /messages ─────────────────────────────────────────────────────────────
+// Returns all contact messages, newest first
 app.get("/messages", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM messages ORDER BY created_at DESC");
-    res.json(result.rows);
+    const messages = await Message.find().sort({ createdAt: -1 });
+    res.json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
