@@ -1,0 +1,137 @@
+/* =============================================================
+   cursor.css
+   — Fixes custom cursor behavior
+   — Overrides color palette with nature-inspired theme
+     Dark  : deep black + forest green + ocean blue + gold
+     Light : white + teal
+   No HTML changes required. Link this AFTER style.css.
+   ============================================================= */
+
+
+/* ─── 1. CURSOR FIX ──────────────────────────────────────────
+   The cursor was invisible in light mode because mix-blend-mode:screen
+   blends light colors away on bright backgrounds.
+   Solution: remove blend mode, use a fixed visible color with a
+   dark outline halo so it reads on any background.
+   position:fixed + left/top are driven by JS — we only style here.
+   ─────────────────────────────────────────────────────────── */
+
+#cursor {
+  width: 10px;
+  height: 10px;
+  background: #c8a84b;               /* gold — visible on dark & light     */
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  mix-blend-mode: normal;            /* was 'screen' — that's what broke it */
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.30),  /* dark halo for light backgrounds   */
+    0 0 10px rgba(200, 168, 75, 0.55); /* gold glow                         */
+  will-change: left, top;            /* hint browser to composite on GPU    */
+}
+
+#cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(200, 168, 75, 0.45);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: left, top;
+}
+
+/* Hover state — switches to forest green */
+body:has(a:hover) #cursor,
+body:has(button:hover) #cursor {
+  transform: scale(3);
+  background: #2d7a4f;
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.25),
+    0 0 12px rgba(45, 122, 79, 0.6);
+}
+
+body:has(a:hover) #cursor-ring,
+body:has(button:hover) #cursor-ring {
+  transform: scale(1.5);
+  opacity: 0;
+}
+
+/* Light mode cursor — deeper teal dot, still clearly visible */
+body.light #cursor {
+  background: #0d7a8a;
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.18),
+    0 0 8px rgba(13, 122, 138, 0.45);
+}
+
+body.light #cursor-ring {
+  border-color: rgba(13, 122, 138, 0.4);
+}
+
+body.light:has(a:hover) #cursor,
+body.light:has(button:hover) #cursor {
+  background: #0a5c6e;
+  box-shadow:
+    0 0 0 1.5px rgba(0, 0, 0, 0.2),
+    0 0 10px rgba(10, 92, 110, 0.5);
+}
+
+
+/* ─── 2. DARK MODE COLOR PALETTE OVERRIDE ───────────────────
+   Nature palette: deep black + forest green + ocean blue + gold
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Backgrounds — deep forest black */
+  --bg:       #080d0a;   /* near-black with a green undertone */
+  --surface:  #0d1610;   /* dark forest floor                 */
+  --surface2: #142019;   /* slightly lifted surface           */
+  --border:   #1e3028;   /* dark moss border                  */
+
+  /* Text */
+  --text:     #e6ede8;   /* off-white, slightly warm          */
+  --muted:    #6b8c74;   /* muted sage green                  */
+
+  /* Accents */
+  --accent:   #c8a84b;   /* burnished gold                    */
+  --accent2:  #2a6496;   /* deep ocean blue                   */
+  --green:    #4caf7d;   /* forest green                      */
+  --red:      #e05555;   /* stays red for errors              */
+}
+
+
+/* ─── 3. LIGHT MODE COLOR PALETTE OVERRIDE ─────────────────
+   Nature palette: white + teal
+   ─────────────────────────────────────────────────────────── */
+
+body.light {
+  --bg:       #f0faf8;   /* pale teal-white                   */
+  --surface:  #ffffff;   /* pure white cards                  */
+  --surface2: #e2f4f1;   /* very light teal wash              */
+  --border:   #b2ddd7;   /* soft teal border                  */
+
+  --text:     #0d2b28;   /* near-black with teal tint         */
+  --muted:    #4a8c85;   /* muted teal                        */
+
+  --accent:   #0d7a8a;   /* deep teal — main accent           */
+  --accent2:  #116b5e;   /* darker teal for secondary hover   */
+  --green:    #1a8a5a;   /* forest green kept for badges      */
+  --red:      #cc3333;   /* errors                            */
+}
+
+/* hero outline text adjusts for light bg */
+body.light .hero-title .line2 {
+  -webkit-text-stroke: 1px rgba(13, 43, 40, 0.18);
+}
+
+/* scrollbar tinted to match gold / teal */
+::-webkit-scrollbar-thumb            { background: var(--accent); }
+body.light ::-webkit-scrollbar-thumb { background: var(--accent); }

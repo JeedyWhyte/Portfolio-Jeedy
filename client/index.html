@@ -8,84 +8,256 @@
         content="Jerry-Bassey Bryan — Backend Developer specializing in secure APIs, databases, and scalable systems.">
     <title>Jerry-Bassey Bryan | Backend Developer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cursor.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-    <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+    <!-- Custom cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
 
-    <div class="container">
+    <div class="wrapper">
 
-        <!-- LEFT SIDEBAR -->
+        <!-- ─── SIDEBAR ─────────────────────────────────────────── -->
         <aside class="sidebar">
-            <img src="profile.jpg" class="avatar" alt="Jerry-Bassey Bryan profile photo">
 
-            <h1>Jerry-Bassey Bryan</h1>
-            <p class="role">Backend Developer</p>
-            <p class="location">Based in Rivers State, Nigeria</p>
-
-            <!-- SOCIAL LINKS -->
-            <div class="socials">
-                <a href="https://github.com/JeedyWhyte" target="_blank" rel="noopener noreferrer"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://x.com/JeedyWhyte" target="_blank" rel="noopener noreferrer"><i
-                        class="fab fa-twitter"></i></a>
-                <a href="mailto:bryanaghogho@outlook.com"><i class="fas fa-envelope"></i></a>
+            <div class="profile-wrap">
+                <div class="avatar-frame">
+                    <div class="avatar-placeholder"><img src="profile.jpg" alt="Jerry-Bassey Bryan"></div>
+                </div>
+                <h1 class="name">Jerry-Bassey<br /><span>Bryan</span></h1>
+                <div class="role-badge">Backend Developer</div>
+                <div class="location">
+                    <i class="fas fa-location-dot" style="font-size:10px;color:var(--muted)"></i>
+                    Rivers State, Nigeria
+                </div>
             </div>
 
-            <section>
-                <h3>ABOUT</h3>
-                <p>I build secure APIs, design databases, and create systems that scale.</p>
-            </section>
+            <nav class="nav">
+                <a href="#about" class="active"><i class="fas fa-user"></i> About</a>
+                <a href="#projects"><i class="fas fa-code-branch"></i> Projects</a>
+                <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+                <a href="#contact"><i class="fas fa-at"></i> Contact</a>
+            </nav>
 
-            <section>
-                <h3>SKILLS</h3>
-                <div class="skills">
-                    <span>Node.js</span>
-                    <span>SQL</span>
-                    <span>REST APIs</span>
-                    <span>Security</span>
-                    <span>Express.js</span>
-                    <span>Git</span>
+            <div>
+                <div class="section-label">Stack</div>
+                <div class="skills-grid">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Express.js</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Security</span>
+                    <span class="skill-tag">Helmet</span>
+                    <span class="skill-tag">JWT</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Docker</span>
                 </div>
-            </section>
+            </div>
+
+            <div>
+                <div class="section-label">Connect</div>
+                <div class="socials">
+                    <a href="https://github.com/JeedyWhyte" target="_blank" rel="noopener noreferrer" title="GitHub"><i
+                            class="fab fa-github"></i></a>
+                    <a href="https://x.com/JeedyWhyte" target="_blank" rel="noopener noreferrer" title="Twitter/X"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="mailto:bryanaghogho@outlook.com" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/bryan-jerry-bassey-83a64b2a5/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i
+                            class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle light mode">
+                <div class="toggle-switch" id="toggleSwitch"></div>
+                <span id="themeLabel">Light mode</span>
+            </div>
+
         </aside>
 
-        <!-- RIGHT CONTENT -->
-        <main class="content">
+        <!-- ─── MAIN ─────────────────────────────────────────────── -->
+        <main class="main">
 
-            <section>
-                <h2>PROJECTS</h2>
+            <!-- Hero -->
+            <section class="hero" id="about">
+                <div class="hero-eyebrow">Available for work</div>
+                <h2 class="hero-title">
+                    Backend<br />
+                    <span class="line2">Engineer</span><br />
+                    <span class="accent-word">&amp; Builder</span>
+                </h2>
+                <p class="hero-bio">
+                    I build the invisible infrastructure that powers great products — secure APIs, resilient databases,
+                    and
+                    systems engineered to scale. Based in Rivers State, Nigeria.
+                </p>
 
-                <div class="card">
-                    <h3>Student Management API</h3>
-                    <p>RESTful API for managing student records with full CRUD operations.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Secure Authentication System</h3>
-                    <p>Password hashing, JWT authentication &amp; role-based access control.</p>
+                <div class="terminal">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="terminal-title">~/portfolio — node server.js</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="t-line"><span class="t-prompt">❯</span><span class="t-cmd">GET /api</span></div>
+                        <div class="t-out"><span class="t-key">"developer"</span>: <span class="t-val">"Jerry-Bassey
+                                Bryan"</span>
+                        </div>
+                        <div class="t-out"><span class="t-key">"status"</span>: <span class="t-val">"open to
+                                opportunities"</span>
+                        </div>
+                        <div class="t-out"><span class="t-key">"stack"</span>: <span class="t-val">["Node.js",
+                                "MongoDB",
+                                "Express"]</span></div>
+                        <div class="t-line" style="margin-top:6px"><span class="t-prompt">❯</span><span
+                                class="cursor-blink"></span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section>
-                <h2>EXPERIENCE</h2>
-                <div class="card">
-                    <h4>Backend Developer (Training)</h4>
-                    <p>Building secure APIs and database systems through hands-on projects.</p>
+            <!-- Projects -->
+            <section class="section" id="projects">
+                <h2 class="section-heading">Projects</h2>
+                <div class="projects-grid">
+
+                    <div class="project-card featured">
+                        <div>
+                            <div class="card-index">01 / Featured</div>
+                            <div class="card-title">Portfolio Backend Server</div>
+                            <div class="card-desc">Production-ready RESTful API powering this portfolio. Handles contact
+                                form
+                                submissions with MongoDB persistence, rate limiting, and full security middleware stack
+                                deployed on
+                                Render.</div>
+                            <div class="card-tags">
+                                <span class="card-tag">Node.js</span>
+                                <span class="card-tag">Express v5</span>
+                                <span class="card-tag">MongoDB</span>
+                                <span class="card-tag">Helmet</span>
+                                <span class="card-tag">Rate Limit</span>
+                            </div>
+                        </div>
+                        <span class="featured-badge">Live</span>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="card-index">02</div>
+                        <div class="card-title">Student Management API</div>
+                        <div class="card-desc">RESTful API for full CRUD operations on student records. Built with clean
+                            architecture and robust schema validation.</div>
+                        <div class="card-tags">
+                            <span class="card-tag">Node.js</span>
+                            <span class="card-tag">REST</span>
+                            <span class="card-tag">CRUD</span>
+                        </div>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="card-index">03</div>
+                        <div class="card-title">Secure Auth System</div>
+                        <div class="card-desc">Enterprise-grade authentication with bcrypt password hashing, JWT tokens,
+                            and
+                            role-based access control.</div>
+                        <div class="card-tags">
+                            <span class="card-tag">JWT</span>
+                            <span class="card-tag">bcrypt</span>
+                            <span class="card-tag">RBAC</span>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
-            <section>
-                <h2>CONTACT</h2>
-                <form id="contactForm" novalidate>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required autocomplete="name">
-                    <input type="email" id="email" name="email" placeholder="Your Email" required autocomplete="email">
-                    <textarea id="message" name="message" placeholder="Your Message" required rows="5"></textarea>
-                    <button type="submit" id="submitBtn">Send Message</button>
-                </form>
-                <p id="status" role="status" aria-live="polite"></p>
+            <!-- Experience -->
+            <section class="section" id="experience">
+                <h2 class="section-heading">Experience</h2>
+                <div>
+                    <div class="exp-item">
+                        <div class="exp-date">2024 — Present</div>
+                        <div>
+                            <div class="exp-role">Backend Developer</div>
+                            <div class="exp-company">Training &amp; Self-directed Projects</div>
+                            <div class="exp-desc">Building production-grade APIs and database systems through intensive
+                                hands-on
+                                projects. Focused on security patterns, scalability, and cloud deployments.</div>
+                        </div>
+                    </div>
+                    <div class="exp-item">
+                        <div class="exp-date">Ongoing</div>
+                        <div>
+                            <div class="exp-role">Open Source Contributor</div>
+                            <div class="exp-company">GitHub / @JeedyWhyte</div>
+                            <div class="exp-desc">Sharing backend projects publicly, iterating on architecture and
+                                security practices
+                                with each new build.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="section" id="contact">
+                <h2 class="section-heading">Contact</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p>Have a project in mind or want to collaborate? I'm open to opportunities — feel free to reach
+                            out
+                            directly.</p>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:bryanaghogho@outlook.com">bryanaghogho@outlook.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/JeedyWhyte" target="_blank"
+                                rel="noopener noreferrer">github.com/JeedyWhyte</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-twitter"></i>
+                            <a href="https://x.com/JeedyWhyte" target="_blank" rel="noopener noreferrer">@JeedyWhyte</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/bryan-jerry-bassey-83a64b2a5/" target="_blank" rel="noopener noreferrer">linkedin.com/in/bryan-jerry-bassey</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-location-dot"></i>
+                            Rivers State, Nigeria
+                        </div>
+                    </div>
+
+                    <div class="contact-form">
+                        <form id="contactForm" novalidate>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required
+                                    autocomplete="name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="your@email.com" required
+                                    autocomplete="email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="What's on your mind?" required
+                                    rows="5"></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn" id="submitBtn">Send Message</button>
+                            <p id="status" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </div>
             </section>
 
         </main>
