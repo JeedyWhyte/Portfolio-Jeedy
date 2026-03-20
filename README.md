@@ -30,7 +30,7 @@ Portfolio-Jeedy/
 │   ├── index.html
 │   ├── style.css
 │   ├── script.js
-│   └── profile.jpg
+│   └── cursor.css
 │
 └── server/                  # Backend (Node.js / Express)
     ├── config/
